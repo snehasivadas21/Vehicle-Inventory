@@ -10,7 +10,8 @@ class VehicleViewSet(viewsets.ModelViewSet):
     queryset = Vehicle.objects.all()
     serializer_class = VehicleSerializer
 
-    
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ["brand","fuel_type","is_available"]
 
 class BookingViewSet(viewsets.ModelViewSet):
     queryset = Booking.objects.select_related("vehicle").all()

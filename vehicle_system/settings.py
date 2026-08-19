@@ -133,10 +133,18 @@ MAILERS = {
     },
 }
 
+
 REST_FRAMEWORK = {
-    "DEFAULT_FILTER_BACKENDS": [
-        "django_filters.rest_framework.DjangoFilterBackend",
-    ],
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend'
+    ]
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Vehicle Inventory & Booking API',
+    'DESCRIPTION': 'REST API for vehicle inventory and booking system',
+    'VERSION': '1.0.0',
 }
 
 CORS_ALLOW_ALL_ORIGINS = True
