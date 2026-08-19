@@ -7,6 +7,7 @@ class Vehicle(models.Model):
         PETROL = "Petrol","Petrol"
         DIESEL = "Diesel","Diesel"
         ELECTRIC = "Electric","Electric"
+        HYBRID = "Hybrid","Hybrid"
     name = models.CharField(max_length=100)
     brand = models.CharField(max_length=100)
     year = models.IntegerField()
