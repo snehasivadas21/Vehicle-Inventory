@@ -11,7 +11,11 @@ This API allows managing vehicles, creating bookings with proper validations, au
 
 - Vehicles: [/api/vehicles/](https://vehicle-inventory-5j02.onrender.com/api/vehicles/)
 - Bookings: [/api/bookings/](https://vehicle-inventory-5j02.onrender.com/api/bookings/)
-- API Documentation (Swagger): [/api/schema/swagger-ui/](https://vehicle-inventory-5j02.onrender.com/api/schema/swagger-ui/)
+- API Documentation (Swagger): [/api/docs/](https://vehicle-inventory-5j02.onrender.com/api/docs/)
+  
+### 🎥 Screen Recording
+
+[Watch the Screen Recording on YouTube](https://youtu.be/FArl2osUcO0)
 
 ---
 
@@ -33,8 +37,8 @@ This API allows managing vehicles, creating bookings with proper validations, au
 
 ## 🛠 Tech Stack
 
-- Python 3
-- Django 5 / 6
+- Python 
+- Django 
 - Django REST Framework
 - PostgreSQL (Production)
 - SQLite (Development)
@@ -54,7 +58,8 @@ cd YOUR_REPO_NAME
 2. Create virtual environment
 
 python -m venv venv
-source venv/bin/activate        # On Windows: venv\Scripts\activate
+source venv/bin/activate
+# On Windows: venv\Scripts\activate
 
 3. Install dependencies
 
@@ -80,12 +85,12 @@ API will be available at: http://127.0.0.1:8000
 🔗 API Endpoints
 Vehicles
 
-Method,Endpoint,Description
-GET,/api/vehicles/,List all vehicles
-POST,/api/vehicles/,Create a new vehicle
-GET,/api/vehicles/{id}/,Retrieve vehicle details
-PUT,/api/vehicles/{id}/,Update vehicle
-DELETE,/api/vehicles/{id}/,Delete vehicle
+Method   Endpoint             Description
+GET      /api/vehicles/       List all vehicles
+POST     /api/vehicles/       Create a new vehicle
+GET      /api/vehicles/{id}/  Retrieve vehicle details
+PUT      /api/vehicles/{id}/  Update vehicle
+DELETE   /api/vehicles/{id}/  Delete vehicle
 
 Filtering examples:
 
@@ -95,10 +100,10 @@ Filtering examples:
 
 Bookings
 
-Method,Endpoint,Description
-GET,/api/bookings/,List all bookings
-POST,/api/bookings/,Create a new booking
-GET,/api/bookings/{id}/,Retrieve booking details
+Method    Endpoint            Description
+GET       /api/bookings/      List all bookings
+POST      /api/bookings/      Create a new booking
+GET       /api/bookings/{id}/ Retrieve booking details
 
 Sample Booking Request (JSON)
 
@@ -121,9 +126,6 @@ Successful Response:
   "end_date": "2026-08-28",
   "total_amount": "9000.00"
 }
-
-🎥 Screen Recording
-[Add your YouTube / Google Drive link here]
 
 📁 Project Structure
 
