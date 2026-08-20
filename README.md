@@ -1,195 +1,148 @@
-# Vehicle Inventory & Booking API
+# Vehicle Inventory & Booking REST API
 
-A RESTful API built with Django REST Framework for managing vehicle inventory and bookings.
+A complete Vehicle Inventory and Booking system built with **Django REST Framework**.  
+This API allows managing vehicles, creating bookings with proper validations, automatic pricing calculation, and preventing double-booking.
 
-The API supports vehicle CRUD operations, booking management, filtering, booking validation, automatic pricing, and prevention of overlapping bookings.
+---
 
-## Features
+## 🚀 Live API
 
-- Vehicle inventory management
-- Vehicle CRUD APIs
-- Booking creation and management
-- Automatic booking price calculation
-- Vehicle availability management
-- Prevention of overlapping bookings
-- Phone number validation
-- Booking date validation
-- Vehicle filtering
-- Swagger API documentation
-- Environment variable configuration
+**Base URL:** [https://vehicle-inventory-5j02.onrender.com](https://vehicle-inventory-5j02.onrender.com)
 
-## Tech Stack
+- Vehicles: [/api/vehicles/](https://vehicle-inventory-5j02.onrender.com/api/vehicles/)
+- Bookings: [/api/bookings/](https://vehicle-inventory-5j02.onrender.com/api/bookings/)
+- API Documentation (Swagger): [/api/schema/swagger-ui/](https://vehicle-inventory-5j02.onrender.com/api/schema/swagger-ui/)
 
-- Python
-- Django
+---
+
+## ✨ Features
+
+- Full CRUD operations for Vehicles and Bookings
+- Filtering vehicles by `brand`, `fuel_type`, and `is_available`
+- Automatic calculation of `total_amount` (days × price_per_day)
+- Business logic validations:
+  - No overlapping bookings for the same vehicle
+  - Start date cannot be in the past
+  - End date must be after start date
+  - Phone number must be exactly 10 digits
+  - Vehicle becomes unavailable after booking
+- Clean and well-structured REST API
+- Swagger / OpenAPI documentation
+
+---
+
+## 🛠 Tech Stack
+
+- Python 3
+- Django 5 / 6
 - Django REST Framework
-- django-filter
-- drf-spectacular
-- SQLite
+- PostgreSQL (Production)
+- SQLite (Development)
+- Render (Hosting)
+- WhiteNoise (Static files)
+- drf-spectacular (API Documentation)
 
-## Project Structure
+---
 
-```text
-vehicle_system/
-│
+## 📦 Setup Instructions (Local)
+
+### 1. Clone the repository
+```bash
+git clone https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
+cd YOUR_REPO_NAME
+
+2. Create virtual environment
+
+python -m venv venv
+source venv/bin/activate        # On Windows: venv\Scripts\activate
+
+3. Install dependencies
+
+pip install -r requirements.txt
+
+4. Environment variables
+Create a .env file in the root directory:
+
+SECRET_KEY=your-secret-key-here
+DEBUG=True
+DATABASE_URL=sqlite:///db.sqlite3
+
+5. Run migrations
+Bashpython manage.py migrate
+
+6. Create superuser 
+Bashpython manage.py createsuperuser
+
+7. Run the development server
+Bashpython manage.py runserver
+API will be available at: http://127.0.0.1:8000
+
+🔗 API Endpoints
+Vehicles
+
+Method,Endpoint,Description
+GET,/api/vehicles/,List all vehicles
+POST,/api/vehicles/,Create a new vehicle
+GET,/api/vehicles/{id}/,Retrieve vehicle details
+PUT,/api/vehicles/{id}/,Update vehicle
+DELETE,/api/vehicles/{id}/,Delete vehicle
+
+Filtering examples:
+
+/api/vehicles/?brand=Toyota
+/api/vehicles/?fuel_type=Electric
+/api/vehicles/?is_available=true
+
+Bookings
+
+Method,Endpoint,Description
+GET,/api/bookings/,List all bookings
+POST,/api/bookings/,Create a new booking
+GET,/api/bookings/{id}/,Retrieve booking details
+
+Sample Booking Request (JSON)
+
+{
+  "vehicle": 1,
+  "customer_name": "John Doe",
+  "customer_phone": "9876543210",
+  "start_date": "2026-08-25",
+  "end_date": "2026-08-28"
+}
+
+Successful Response:
+
+{
+  "id": 3,
+  "vehicle": 1,
+  "customer_name": "John Doe",
+  "customer_phone": "9876543210",
+  "start_date": "2026-08-25",
+  "end_date": "2026-08-28",
+  "total_amount": "9000.00"
+}
+
+🎥 Screen Recording
+[Add your YouTube / Google Drive link here]
+
+📁 Project Structure
+
+vehicle_inventory/
 ├── inventory/
-│   ├── migrations/
-│   ├── admin.py
 │   ├── models.py
 │   ├── serializers.py
-│   ├── tests.py
-│   └── views.py
-│
+│   ├── views.py
+│   ├── urls.py
+│   └── ...
 ├── vehicle_system/
 │   ├── settings.py
 │   ├── urls.py
-│   ├── wsgi.py
-│   ├── asgi.py
-│
-├── .env.example
-├── .gitignore
+│   └── ...
 ├── manage.py
 ├── requirements.txt
+├── build.sh
+├── .env.example
 └── README.md
 
-Installation
-1. Clone the repository
-git clone <your-github-repository-url>
-cd vehicle_system
-2. Create a virtual environment
-python -m venv venv
-
-Activate it.
-
-Windows
-venv\Scripts\activate
-
-macOS/Linux
-source venv/bin/activate
-
-3. Install dependencies
-pip install -r requirements.txt
-
-Database Setup
-
-Run migrations:
-
-python manage.py makemigrations
-python manage.py migrate
-Run the Development Server
-python manage.py runserver
-
-The API will be available at:
-
-http://127.0.0.1:8000/
-
-API Documentation
-
-Swagger documentation is available at:
-
-http://127.0.0.1:8000/api/docs/
-
-The OpenAPI schema is available at:
-
-http://127.0.0.1:8000/api/schema/
-
-API Endpoints
-
-Vehicle APIs
-Method	  Endpoint	          Description
-GET	      /api/vehicles/	    List vehicles
-POST	    /api/vehicles/	    Create vehicle
-GET	      /api/vehicles/<id>/	Get vehicle details
-PUT	      /api/vehicles/<id>/	Update vehicle
-DELETE	  /api/vehicles/<id>/	Delete vehicle
-
-Booking APIs
-Method	  Endpoint	          Description
-GET	      /api/bookings/	    List bookings
-POST	    /api/bookings/	    Create booking
-GET	      /api/bookings/<id>/	Get booking details
-
-Vehicle Filtering
-
-Vehicles can be filtered using query parameters.
-
-Filter by brand
-/api/vehicles/?brand=Toyota
-Filter by fuel type
-/api/vehicles/?fuel_type=Electric
-Filter by availability
-/api/vehicles/?is_available=true
-Combine filters
-/api/vehicles/?brand=Toyota&fuel_type=Hybrid
-
-Vehicle Example
-POST /api/vehicles/
-
-Request:
-{
-    "name": "Corolla",
-    "brand": "Toyota",
-    "year": 2024,
-    "price_per_day": "2000.00",
-    "fuel_type": "Petrol",
-    "is_available": true
-}
-Response:
-{
-    "id": 1,
-    "name": "Corolla",
-    "brand": "Toyota",
-    "year": 2024,
-    "price_per_day": "2000.00",
-    "fuel_type": "Petrol",
-    "is_available": true
-}
-
-Booking Example
-POST /api/bookings/
-
-Request:
-{
-    "vehicle": 1,
-    "customer_name": "Sneha",
-    "customer_phone": "9876543210",
-    "start_date": "2026-08-25",
-    "end_date": "2026-08-28"
-}
-
-Example response:
-{
-    "id": 1,
-    "vehicle": 1,
-    "customer_name": "Sneha",
-    "customer_phone": "9876543210",
-    "start_date": "2026-08-25",
-    "end_date": "2026-08-28",
-    "total_amount": "6000.00"
-}
-
-Create an admin user:
-
-python manage.py createsuperuser
-
-Then visit:
-
-http://127.0.0.1:8000/admin/
-
-Screen Recording:
-
-Add your Google Drive / YouTube link here after recording.
-
-Deployment:
-
-Add the deployed API URL here after deployment.
-
-Swagger:
-
-Add deployed Swagger URL here after deployment.
-
-Author
-
-S Sneha
-
-
+Developed by: S Sneha
+GitHub: https://github.com/snehasivadas21?
